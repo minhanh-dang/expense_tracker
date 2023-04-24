@@ -43,14 +43,14 @@ public class ExpensesController {
         return expenseDto.stream().map(expenses -> expenseMapper.toResponse(expenses)).collect(Collectors.toList());
     }
 
-    @GetMapping("/my-todos")
+    @GetMapping("/my-expense")
     @PreAuthorize("hasAnyAuthority('ROLE_MANAGER','ROLE_EMPLOYEE')")
     public List<ExpenseResponse> getUserToDo(@CurrentUser UserPrincipal currentUser) {
         List<ExpenseDto> expenseDto = expenseService.getUserExpenses(currentUser.getId());
         return expenseDto.stream().map(expense -> expenseMapper.toResponse(expense)).collect(Collectors.toList());
     }
 
-    @PutMapping("{user_id}/updateToDo/{todo_id}")
+    @PutMapping("{user_id}/updateExpense/{expense_id}")
     @PreAuthorize("#user_id == #currentUser.id")
     public ExpenseResponse updateToDo(@CurrentUser UserPrincipal currentUser, @PathVariable Long user_id, @PathVariable Long expense_id,
                                    @RequestBody ExpenseRequest expenseRequest){
@@ -60,7 +60,7 @@ public class ExpensesController {
 
     }
 
-    @DeleteMapping("{user_id}/deleteToDo/{todo_id}")
+    @DeleteMapping("{user_id}/deleteExpense/{expense_id}")
     @PreAuthorize("#user_id == #currentUser.id")
     public ResponseEntity<String> deleteExpense(@PathVariable Long user_id, @PathVariable Long expense_id,
                                              @CurrentUser UserPrincipal currentUser){
