@@ -9,7 +9,7 @@ import javax.management.relation.Role;
 import java.util.Optional;
 
 @Repository
-public interface RoleRepository extends JpaRepository<Role, Long> {
+public interface RoleRepository extends JpaRepository<Roles, Long> {
 
     Optional<Roles> findByRoleName(RoleName roleName);
 

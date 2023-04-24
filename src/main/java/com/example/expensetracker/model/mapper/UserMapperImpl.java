@@ -4,7 +4,9 @@ import com.example.expensetracker.model.DTO.UserDto;
 import com.example.expensetracker.model.entity.Users;
 import com.example.expensetracker.model.request.UserRequest;
 import com.example.expensetracker.model.response.UserResponse;
+import org.springframework.stereotype.Component;
 
+@Component
 public class UserMapperImpl implements UserMapper {
 
     @Override

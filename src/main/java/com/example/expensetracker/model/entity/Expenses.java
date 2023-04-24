@@ -45,11 +45,11 @@ public class Expenses {
     @Column(name = "paid_by")
     private PaidBy paidBy;
 
-    @Column(name = "dateCreated", updatable = false)
+    @Column(name = "date_created", updatable = false)
     @CreationTimestamp
     private Instant createdAt;
 
-    @Column(name = "dateModified")
+    @Column(name = "date_modified")
     @UpdateTimestamp
     private Instant modifiedAt;
 

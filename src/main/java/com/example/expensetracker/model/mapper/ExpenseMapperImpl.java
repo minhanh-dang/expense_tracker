@@ -4,7 +4,9 @@ import com.example.expensetracker.model.DTO.ExpenseDto;
 import com.example.expensetracker.model.entity.Expenses;
 import com.example.expensetracker.model.request.ExpenseRequest;
 import com.example.expensetracker.model.response.ExpenseResponse;
+import org.springframework.stereotype.Component;
 
+@Component
 public class ExpenseMapperImpl implements ExpenseMapper{
 
     @Override

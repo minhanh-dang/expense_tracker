@@ -23,11 +23,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class ExpensesController {
 
-    private final UserService userService;
-
     private final ExpenseService expenseService;
-
-    private final UserMapper userMapper;
 
     private final ExpenseMapper expenseMapper;
 
@@ -40,7 +36,7 @@ public class ExpensesController {
         return expenseMapper.toResponse(savedExpenseDto);
     }
 
-    @GetMapping("/todos")
+    @GetMapping("/expenses")
     @PreAuthorize("hasAuthority('ROLE_MANAGER')")
     public List<ExpenseResponse> getAllExpenses() {
         List<ExpenseDto> expenseDto = expenseService.getAllExpenses();
@@ -48,7 +44,7 @@ public class ExpensesController {
     }
 
     @GetMapping("/my-todos")
-    @PreAuthorize("hasAnyAuthority('ROLE_ADMIN','ROLE_USER')")
+    @PreAuthorize("hasAnyAuthority('ROLE_MANAGER','ROLE_EMPLOYEE')")
     public List<ExpenseResponse> getUserToDo(@CurrentUser UserPrincipal currentUser) {
         List<ExpenseDto> expenseDto = expenseService.getUserExpenses(currentUser.getId());
         return expenseDto.stream().map(expense -> expenseMapper.toResponse(expense)).collect(Collectors.toList());
@@ -70,6 +66,6 @@ public class ExpensesController {
                                              @CurrentUser UserPrincipal currentUser){
 
         expenseService.deleteExpense(expense_id);
-        return new ResponseEntity<>("ToDo successfully deleted!", HttpStatus.OK);
+        return new ResponseEntity<>("Expense successfully deleted!", HttpStatus.OK);
     }
 }
