@@ -1,14 +1,15 @@
 package com.example.expensetracker.security;
 
-import com.example.expensetracker.model.entity.Users;
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import java.util.Collection;
+import java.util.List;
+import java.util.Objects;
+
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
-import java.util.Collection;
-import java.util.Objects;
-
+import com.example.expensetracker.model.entity.Users;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 public class UserPrincipal implements UserDetails {
 
@@ -28,7 +29,7 @@ public class UserPrincipal implements UserDetails {
 
 	public Collection<? extends GrantedAuthority> authorities;
 
-	public UserPrincipal(Long id, String name, String password, GrantedAuthority authority) {
+	public UserPrincipal(Long id, String name, String password, Collection<? extends GrantedAuthority> authorities) {
 		this.id = id;
 		this.name = name;
 		this.password = password;
@@ -38,8 +39,8 @@ public class UserPrincipal implements UserDetails {
 	public static UserPrincipal build(Users user) {
 //		List<GrantedAuthority> authorities = user.getRole().stream()
 //				.map(role -> new SimpleGrantedAuthority(role.getRoleName().name())).collect(Collectors.toList());
-		GrantedAuthority authority = new SimpleGrantedAuthority(user.getRole().getRoleName().name()) ;
-		return new UserPrincipal(user.getId(), user.getUsername(), user.getPassword(), authority);
+		GrantedAuthority authority = new SimpleGrantedAuthority(user.getRole().getRoleName().name());
+		return new UserPrincipal(user.getId(), user.getUsername(), user.getPassword(), List.of(authority));
 	}
 
 	public Long getId() {
@@ -118,6 +119,5 @@ public class UserPrincipal implements UserDetails {
 		UserPrincipal user = (UserPrincipal) o;
 		return Objects.equals(id, user.id);
 	}
-
 
 }

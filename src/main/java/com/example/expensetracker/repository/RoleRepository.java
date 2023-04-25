@@ -1,16 +1,16 @@
 package com.example.expensetracker.repository;
 
-import com.example.expensetracker.model.entity.RoleName;
-import com.example.expensetracker.model.entity.Roles;
+import java.util.Optional;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
-import javax.management.relation.Role;
-import java.util.Optional;
+import com.example.expensetracker.model.entity.RoleName;
+import com.example.expensetracker.model.entity.Roles;
 
 @Repository
 public interface RoleRepository extends JpaRepository<Roles, Long> {
 
-    Optional<Roles> findByRoleName(RoleName roleName);
+	Optional<Roles> findByRoleName(RoleName roleName);
 
 }
