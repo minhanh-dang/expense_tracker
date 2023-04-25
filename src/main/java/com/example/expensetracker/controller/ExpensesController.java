@@ -60,7 +60,7 @@ public class ExpensesController {
 	@PutMapping("{user_id}/updateExpense/{expense_id}")
 	@PreAuthorize("#user_id == #currentUser.id")
 	public ExpenseResponse updateToDo(@CurrentUser UserPrincipal currentUser, @PathVariable Long user_id,
-			@PathVariable Long expense_id, @RequestBody ExpenseRequest expenseRequest) {
+									  @PathVariable Long expense_id, @RequestBody ExpenseRequest expenseRequest) {
 
 		ExpenseDto updatedExpense = expenseService.updateExpense(expense_id, expenseMapper.toDto(expenseRequest));
 		return expenseMapper.toResponse(updatedExpense);
@@ -70,7 +70,7 @@ public class ExpensesController {
 	@DeleteMapping("{user_id}/deleteExpense/{expense_id}")
 	@PreAuthorize("#user_id == #currentUser.id")
 	public ResponseEntity<String> deleteExpense(@PathVariable Long user_id, @PathVariable Long expense_id,
-			@CurrentUser UserPrincipal currentUser) {
+												@CurrentUser UserPrincipal currentUser) {
 
 		expenseService.deleteExpense(expense_id);
 		return new ResponseEntity<>("Expense successfully deleted!", HttpStatus.OK);
