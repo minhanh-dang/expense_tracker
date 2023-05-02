@@ -1,6 +1,7 @@
 package com.example.expensetracker.model.mapper;
 
 import com.example.expensetracker.model.DTO.ExpenseDto;
+import com.example.expensetracker.model.entity.Categories;
 import com.example.expensetracker.model.entity.Expenses;
 import com.example.expensetracker.model.request.ExpenseRequest;
 import com.example.expensetracker.model.response.ExpenseResponse;

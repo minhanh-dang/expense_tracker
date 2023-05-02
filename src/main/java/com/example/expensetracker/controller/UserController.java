@@ -43,7 +43,7 @@ public class UserController {
 		return userMapper.toResponse(user);
 	}
 
-	@GetMapping("/users")
+	@GetMapping("/allUsers")
 	@PreAuthorize("hasAuthority('ROLE_MANAGER')")
 	List<UserResponse> getUsers() {
 		List<UserDto> users = userService.getAllUsers();

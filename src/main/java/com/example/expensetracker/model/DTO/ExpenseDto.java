@@ -19,7 +19,7 @@ import java.util.Currency;
 public class ExpenseDto {
     private Long id;
     private String description;
-    private Categories category;
+    private String category;
     private ExpenseStatus status;
     private BigDecimal price;
     private PaidBy paidBy;

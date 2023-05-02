@@ -17,7 +17,7 @@ public class ExpenseRequest {
 
     private String description;
 
-    private Categories category;
+    private String category;
 
     private BigDecimal price;
 

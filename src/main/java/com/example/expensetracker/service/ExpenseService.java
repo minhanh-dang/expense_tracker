@@ -16,6 +16,8 @@ public interface ExpenseService {
 
     ExpenseDto updateExpense(Long id, ExpenseDto expenseDto);
 
+    public ExpenseDto updateExpenseStatus(Long id, ExpenseDto expenseDto);
+
     String deleteExpense(Long id);
 
 }

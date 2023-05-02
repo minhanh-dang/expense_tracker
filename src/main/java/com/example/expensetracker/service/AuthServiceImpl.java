@@ -24,7 +24,7 @@ public class AuthServiceImpl implements AuthService {
 	public AuthenticationResponse authenticate(LoginRequest request) {
 		Date expiredAt = new Date((new Date()).getTime() + 86400 * 1000);
 
-		System.out.println(request.getUsername() + request.getPassword());
+//		System.out.println(request.getUsername() + request.getPassword());
 		Authentication authentication = authenticationManager
 				.authenticate(new UsernamePasswordAuthenticationToken(request.getUsername(), request.getPassword()));
 

@@ -14,4 +14,6 @@ public interface ExpenseRepository extends JpaRepository<Expenses, Long> {
 
     Optional<List<Expenses>> findByCategoryId(Long id);
 
+//    public void saveExpense(Expenses expenses);
+
 }

@@ -19,7 +19,7 @@ public class ExpenseResponse {
 
     private String description;
 
-    private Categories category;
+    private String category;
 
     private BigDecimal price;
 
