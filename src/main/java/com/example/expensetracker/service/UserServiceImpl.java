@@ -57,10 +57,10 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserDto updateUser(UserDto userDto) {
-        Users existingUser = userRepository.findById(userDto.getId()).orElseThrow(() -> new BadRequestException("User not found!"));;
+    public UserDto updateUser(Long user_id, UserDto userDto) {
+        Users existingUser = userRepository.findById(user_id).orElseThrow(() -> new BadRequestException("User not found!"));;
         existingUser.setUsername(userDto.getName());
-        existingUser.setPassword(userDto.getPassword());
+        existingUser.setPassword(encoder.encode(userDto.getPassword()));
         return userMapper.toDto(userRepository.save(existingUser));
     }
 

@@ -86,11 +86,7 @@ public class ExpenseServiceImpl implements ExpenseService{
     @Override
     public ExpenseDto updateExpenseStatus(Long id, ExpenseDto expenseDto){
         Expenses existingExpense = expenseRepository.findById(id).orElseThrow(() -> new BadRequestException("Expense not found!"));;
-//        existingExpense.setDescription(expenseDto.getDescription());
-//        existingExpense.setCategory(expenseDto.getCategory());
-//        existingExpense.setPrice(expenseDto.getPrice());
         existingExpense.setStatus(expenseDto.getStatus());
-//        existingExpense.setPaidBy(expenseDto.getPaidBy());
         Expenses updatedExpense = expenseRepository.save(existingExpense);
         return expenseMapper.toDto(updatedExpense);
     }

@@ -50,11 +50,11 @@ public class UserController {
 		return users.stream().map(user -> userMapper.toResponse(user)).collect(Collectors.toList());
 	}
 
-	@PutMapping("/updateUser")
+	@PutMapping("/updateUser/{user_id}")
 	@PreAuthorize("hasAuthority('ROLE_MANAGER')")
-	UserResponse updateUser(@RequestBody UserRequest userRequest) {
+	UserResponse updateUser(@PathVariable Long user_id,@RequestBody UserRequest userRequest) {
 		UserDto userDto = userMapper.toDto(userRequest);
-		UserDto updatedUser = userService.updateUser(userDto);
+		UserDto updatedUser = userService.updateUser(user_id, userDto);
 		return userMapper.toResponse(updatedUser);
 	}
 
