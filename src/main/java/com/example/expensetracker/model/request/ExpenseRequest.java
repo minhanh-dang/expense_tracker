@@ -13,7 +13,7 @@ import java.util.Currency;
 @Setter
 public class ExpenseRequest {
 
-    private Long id;
+//    private Long id;
 
     private String description;
 

@@ -38,7 +38,6 @@ public class ExpensesController {
 
 	private final ExpenseMapper expenseMapper;
 
-	private final CategoryRepository categoryRepository;
 
 	@PostMapping("/addExpense")
 	@PreAuthorize("hasAnyAuthority('ROLE_MANAGER','ROLE_EMPLOYEE')")
@@ -50,11 +49,18 @@ public class ExpensesController {
 		return expenseMapper.toResponse(savedExpenseDto);
 	}
 
-	@GetMapping("/expenses")
+	@GetMapping("/allExpenses")
 	@PreAuthorize("hasAuthority('ROLE_MANAGER')")
 	public List<ExpenseResponse> getAllExpenses() {
 		List<ExpenseDto> expenseDto = expenseService.getAllExpenses();
 		return expenseDto.stream().map(expenses -> expenseMapper.toResponse(expenses)).collect(Collectors.toList());
+	}
+
+	@GetMapping("/{expense_id}")
+	@PreAuthorize("hasAuthority('ROLE_MANAGER')")
+	public ExpenseResponse getExpenseById(@PathVariable Long expense_id) {
+		ExpenseDto expenseDto = expenseService.getExpensesById(expense_id);
+		return expenseMapper.toResponse(expenseDto);
 	}
 
 	@GetMapping("/my-expense")
@@ -64,7 +70,7 @@ public class ExpensesController {
 		return expenseDto.stream().map(expense -> expenseMapper.toResponse(expense)).collect(Collectors.toList());
 	}
 
-	@PutMapping("{user_id}/updateExpense/{expense_id}")
+	@PutMapping("/{user_id}/updateExpense/{expense_id}")
 	@PreAuthorize("#user_id == #currentUser.id")
 	public ExpenseResponse updateExpense(@CurrentUser UserPrincipal currentUser, @PathVariable Long user_id,
 									  @PathVariable Long expense_id, @RequestBody ExpenseRequest expenseRequest) {
@@ -74,17 +80,17 @@ public class ExpensesController {
 
 	}
 
-	@PutMapping("{user_id}/updateExpenseStatus/{expense_id}")
-	@PreAuthorize("#user_id == #currentUser.id")
-	public ExpenseResponse updateExpenseStatus(@CurrentUser UserPrincipal currentUser, @PathVariable Long user_id,
-									  @PathVariable Long expense_id, @RequestBody ExpenseRequest expenseRequest) {
+	@PutMapping("/updateStatus/{expense_id}")
+	@PreAuthorize("hasAuthority('ROLE_MANAGER')")
+	public ExpenseResponse updateExpenseStatus(@PathVariable Long expense_id,
+											   @RequestBody ExpenseRequest expenseRequest) {
 
-		ExpenseDto updatedExpense = expenseService.updateExpense(expense_id, expenseMapper.toDto(expenseRequest));
+		ExpenseDto updatedExpense = expenseService.updateExpenseStatus(expense_id, expenseMapper.toDto(expenseRequest));
 		return expenseMapper.toResponse(updatedExpense);
 
 	}
 
-	@DeleteMapping("{user_id}/deleteExpense/{expense_id}")
+	@DeleteMapping("/{user_id}/deleteExpense/{expense_id}")
 	@PreAuthorize("#user_id == #currentUser.id")
 	public ResponseEntity<String> deleteExpense(@PathVariable Long user_id, @PathVariable Long expense_id,
 												@CurrentUser UserPrincipal currentUser) {
